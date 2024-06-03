@@ -8,16 +8,11 @@ export default function KakaoSharePage() {
   const [kakaoLoaded, setKakaoLoaded] = useState(false);
 
   useEffect(() => {
-    loadKakaoSdk()
-      .then(() => setKakaoLoaded(true))
-      .catch((error) => {
-        console.error(error);
-      });
+    loadKakaoSdk().then(() => setKakaoLoaded(true));
   }, []);
 
   const shareKakao = () => {
     if (!kakaoLoaded || !window.Kakao) {
-      console.error("Kakao SDK not initialized");
       return;
     }
 
@@ -33,13 +28,6 @@ export default function KakaoSharePage() {
         },
       },
       buttons: [
-        {
-          title: "웹으로 보기",
-          link: {
-            mobileWebUrl: "https://your.website.url",
-            webUrl: "https://your.website.url",
-          },
-        },
         {
           title: "앱으로 보기",
           link: {
