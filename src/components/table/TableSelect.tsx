@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { UseFormReturn } from "react-hook-form";
 
 import { FormField, FormItem } from "@/components/ui/form";
@@ -43,7 +43,11 @@ export default function TableSelect({
               field.onChange(value);
             }}
           >
-            <SelectTrigger className="w-full">
+            <SelectTrigger
+              className={`w-full h-[1.875rem] text-xs ${
+                field.value ? "text-[#0A0A0A]" : "text-[#999]"
+              }`}
+            >
               <SelectValue placeholder="내용을 입력해주세요.">
                 {label(field.value)}
               </SelectValue>

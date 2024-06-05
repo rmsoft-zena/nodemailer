@@ -25,7 +25,7 @@ export default function TableInput({
         <FormItem>
           <FormControl>
             <Input
-              className="!w-full"
+              className="w-full h-[1.875rem] text-[#0A0A0A] placeholder:text-[#999] text-xs"
               type={type}
               placeholder="내용을 입력해주세요."
               disabled={isDisabled}

@@ -9,7 +9,7 @@ interface TableMainInterface {
 
 export default function TableMain({ data }: TableMainInterface) {
   return (
-    <Table>
+    <Table className="text-xs">
       <colgroup>
         <col width={"15%"} />
         <col width={"15%"} />
@@ -17,20 +17,30 @@ export default function TableMain({ data }: TableMainInterface) {
         <col width={"15%"} />
         <col width={"27.5%"} />
       </colgroup>
-      <TableBody>
+      <TableBody className="border">
         {data?.map((el) =>
           // 1Deps
           !el?.children ? (
             <TableRow key={el.title}>
-              <TableCell colSpan={2}>{el?.title}</TableCell>
-              <TableCell colSpan={3}>{el?.node}</TableCell>
+              <TableCell
+                className="border-r bg-gray-50 px-[0.62rem] py-[1.6rem]"
+                colSpan={2}
+              >
+                {el?.title}
+              </TableCell>
+              <TableCell className="py-2" colSpan={3}>
+                {el?.node}
+              </TableCell>
             </TableRow>
           ) : (
             el?.children?.map((e: any, idx: number) => (
               <TableRow key={el.title + idx}>
                 {/* 2Deps title */}
                 {idx === 0 && (
-                  <TableCell rowSpan={el?.children?.length}>
+                  <TableCell
+                    className="border-r bg-gray-50 px-[0.62rem]"
+                    rowSpan={el?.children?.length}
+                  >
                     {el?.title}
                   </TableCell>
                 )}
@@ -42,16 +52,26 @@ export default function TableMain({ data }: TableMainInterface) {
                     ) => (
                       // 2Deps & 2Cell
                       <Fragment key={label + i}>
-                        <TableCell>{label}</TableCell>
-                        <TableCell>{node}</TableCell>
+                        <TableCell
+                          className={`border-r bg-gray-50 px-[0.62rem] py-2 ${
+                            i % 2 && "border-x"
+                          }`}
+                        >
+                          {label}
+                        </TableCell>
+                        <TableCell className="py-2">{node}</TableCell>
                       </Fragment>
                     )
                   )
                 ) : (
                   // 2Deps & 1Cell
                   <>
-                    <TableCell>{e.label}</TableCell>
-                    <TableCell colSpan={3}>{e.node}</TableCell>
+                    <TableCell className="border-r bg-gray-50 px-[0.62rem] py-2">
+                      {e.label}
+                    </TableCell>
+                    <TableCell className="py-2" colSpan={3}>
+                      {e.node}
+                    </TableCell>
                   </>
                 )}
               </TableRow>

@@ -36,8 +36,8 @@ export default function TableDatePicker({
                 <Button
                   variant={"outline"}
                   className={cn(
-                    "w-[280px] justify-start text-left font-normal",
-                    !field.value && "text-muted-foreground"
+                    "w-[8.75rem] p-2 justify-between text-left font-normal h-[2rem] text-xs",
+                    field.value ? "text-[#0A0A0A]" : "text-[#999]"
                   )}
                 >
                   {field.value ? (
@@ -45,7 +45,7 @@ export default function TableDatePicker({
                   ) : (
                     <span>yyyy-mm-dd</span>
                   )}
-                  <CalendarIcon className="mr-2 h-4 w-4" />
+                  <CalendarIcon className="h-4 w-4" />
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-0">

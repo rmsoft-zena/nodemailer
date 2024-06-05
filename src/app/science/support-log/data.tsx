@@ -42,7 +42,7 @@ export const SupportLogData = ({ form }: Props) => {
   const data = [
     {
       title: "메타데이터 항목명",
-      node: <Input value={"대한식 소총"} disabled={true} />,
+      node: <TableTextarea form={form} name="recipt_no" />,
     },
     {
       title: "식별정보",

@@ -23,7 +23,11 @@ export default function TableRadio({
       render={({ field }) => (
         <FormItem>
           <FormControl>
-            <RadioGroup onValueChange={field.onChange} value={field.value}>
+            <RadioGroup
+              onValueChange={field.onChange}
+              value={field.value}
+              className="text-xs"
+            >
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="Y" id="Y" />
                 <Label htmlFor="Y">{labelData.Y}</Label>
