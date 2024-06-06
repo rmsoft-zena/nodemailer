@@ -21,20 +21,20 @@ export default function TableMain({ data }: TableMainInterface) {
         {data?.map((el) =>
           // 1Deps
           !el?.children ? (
-            <TableRow key={el.title}>
+            <TableRow key={el.title} className="hover:bg-inherit">
               <TableCell
-                className="border-r bg-gray-50 px-[0.62rem] py-[1.6rem]"
+                className="border-r bg-gray-50 px-[0.62rem] py-4"
                 colSpan={2}
               >
                 {el?.title}
               </TableCell>
-              <TableCell className="py-2" colSpan={3}>
+              <TableCell className="py-2 px-[0.62rem]" colSpan={3}>
                 {el?.node}
               </TableCell>
             </TableRow>
           ) : (
             el?.children?.map((e: any, idx: number) => (
-              <TableRow key={el.title + idx}>
+              <TableRow key={el.title + idx} className="hover:bg-inherit">
                 {/* 2Deps title */}
                 {idx === 0 && (
                   <TableCell
@@ -59,7 +59,9 @@ export default function TableMain({ data }: TableMainInterface) {
                         >
                           {label}
                         </TableCell>
-                        <TableCell className="py-2">{node}</TableCell>
+                        <TableCell className="py-2 px-[0.62rem]">
+                          {node}
+                        </TableCell>
                       </Fragment>
                     )
                   )
@@ -69,7 +71,7 @@ export default function TableMain({ data }: TableMainInterface) {
                     <TableCell className="border-r bg-gray-50 px-[0.62rem] py-2">
                       {e.label}
                     </TableCell>
-                    <TableCell className="py-2" colSpan={3}>
+                    <TableCell className="py-2 px-[0.62rem]" colSpan={3}>
                       {e.node}
                     </TableCell>
                   </>

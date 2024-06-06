@@ -40,7 +40,7 @@ export default function HeritageInfoPage() {
               <Button className="px-4 py-2">완료</Button>
             </div>
           </div>
-          <p className="h-10 w-full px-4 border-x flex items-center text-sm bg-[#F8FAFC]">
+          <p className="h-10 w-full font-medium px-4 border-x flex items-center text-sm bg-[#F8FAFC]">
             분류
           </p>
           <Form {...form}>

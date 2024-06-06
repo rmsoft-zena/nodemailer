@@ -23,7 +23,7 @@ export default function TableTextarea({
         <FormItem>
           <FormControl>
             <Textarea
-              className="!w-full resize-none rounded-none p-[0.62rem]  text-[#0A0A0A] placeholder:text-[#999] focus:rounded-none focus:border focus:border-primary"
+              className="!w-full resize-none rounded-none p-2 text-[#0A0A0A] placeholder:text-[#999] focus:rounded-none focus:border focus:border-primary"
               placeholder="내용을 입력해주세요."
               disabled={isDisabled}
               {...field}

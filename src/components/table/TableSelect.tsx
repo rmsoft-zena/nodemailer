@@ -44,7 +44,7 @@ export default function TableSelect({
             }}
           >
             <SelectTrigger
-              className={`w-full h-[1.875rem] text-xs ${
+              className={`w-full h-[1.875rem] p-2 text-xs ${
                 field.value ? "text-[#0A0A0A]" : "text-[#999]"
               }`}
             >
@@ -54,7 +54,7 @@ export default function TableSelect({
             </SelectTrigger>
             <SelectContent>
               {selectList?.map(({ label, value }) => (
-                <SelectItem key={value} value={value}>
+                <SelectItem key={value} value={value} className="text-xs">
                   {label}
                 </SelectItem>
               ))}

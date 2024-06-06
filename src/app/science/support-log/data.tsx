@@ -34,15 +34,16 @@ export const SupportLogData = ({ form }: Props) => {
     },
   ];
 
-  const radio = {
-    Y: "있음",
-    N: "없음",
-  };
-
   const data = [
     {
       title: "메타데이터 항목명",
-      node: <TableTextarea form={form} name="recipt_no" />,
+      node: (
+        <TableRadio
+          form={form}
+          name="recipt_no"
+          labelData={{ Y: "에", N: "아니오" }}
+        />
+      ),
     },
     {
       title: "식별정보",
@@ -131,7 +132,7 @@ export const SupportLogData = ({ form }: Props) => {
         },
         {
           label: "내용",
-          node: <TableInput form={form} name="support_content" />,
+          node: <TableTextarea form={form} name="support_content" />,
         },
       ],
     },
@@ -162,7 +163,7 @@ export const SupportLogData = ({ form }: Props) => {
     },
     {
       title: "특이사항",
-      node: <TableInput form={form} name="report_no" />,
+      node: <TableTextarea form={form} name="significant" />,
     },
   ];
 

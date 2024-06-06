@@ -26,15 +26,19 @@ export default function TableRadio({
             <RadioGroup
               onValueChange={field.onChange}
               value={field.value}
-              className="text-xs"
+              className="text-xs flex gap-4"
             >
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="Y" id="Y" />
-                <Label htmlFor="Y">{labelData.Y}</Label>
+                <Label htmlFor="Y" className="text-xs">
+                  {labelData.Y}
+                </Label>
               </div>
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="N" id="N" />
-                <Label htmlFor="N">{labelData.N}</Label>
+                <Label htmlFor="N" className="text-xs">
+                  {labelData.N}
+                </Label>
               </div>
             </RadioGroup>
           </FormControl>

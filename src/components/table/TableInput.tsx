@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 interface TableInputInterface {
   form: UseFormReturn<any>;
   name: string;
+  maxLength?: number;
   type?: string;
   isDisabled?: boolean;
 }
@@ -14,6 +15,7 @@ interface TableInputInterface {
 export default function TableInput({
   form,
   name,
+  maxLength = undefined,
   type = "text",
   isDisabled = false,
 }: TableInputInterface) {
@@ -25,10 +27,11 @@ export default function TableInput({
         <FormItem>
           <FormControl>
             <Input
-              className="w-full h-[1.875rem] text-[#0A0A0A] placeholder:text-[#999] text-xs"
+              className="w-full h-[1.875rem] text-[#0A0A0A] placeholder:text-[#999] text-xs p-2"
               type={type}
               placeholder="내용을 입력해주세요."
               disabled={isDisabled}
+              maxLength={maxLength}
               {...field}
             />
           </FormControl>
