@@ -10,7 +10,7 @@ export const heritageFormSchema = z.object({
   position: z.string().optional(),
   product_date: z.string().optional(),
   enroll_date: z.string().optional(),
-  file_cnt: z.number().optional(),
+  file_cnt: z.union([z.string(), z.number()]).optional(),
   preserve_period: z.string().optional(),
   preserve_reason: z.string().optional(),
   preserve_category: z.string().optional(),
@@ -26,7 +26,7 @@ export const heritageFormSchema = z.object({
   manager_name: z.string().optional(),
 });
 
-export const heritageDefaultValue = {
+export const heritageDefaultValue: z.infer<typeof heritageFormSchema> = {
   code: "",
   name: "",
   keyword: "",
@@ -36,7 +36,7 @@ export const heritageDefaultValue = {
   position: "",
   product_date: "",
   enroll_date: "",
-  file_cnt: undefined,
+  file_cnt: "",
   preserve_period: "",
   preserve_reason: "",
   preserve_category: "",

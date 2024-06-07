@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -17,6 +17,7 @@ import { HeritageInfoData } from "./data";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { getHeritage } from "@/api/getHeritage";
 
 export default function HeritageInfoPage() {
   const router = useRouter();
@@ -34,6 +35,10 @@ export default function HeritageInfoPage() {
   const onSubmit = (value: z.infer<typeof heritageFormSchema>) => {
     console.log(value);
   };
+
+  useEffect(() => {
+    getHeritage().then((res) => heritageForm.reset(res.data));
+  }, [heritageForm]);
 
   return (
     <div className="px-10 py-4 w-full h-full overflow-x-auto">

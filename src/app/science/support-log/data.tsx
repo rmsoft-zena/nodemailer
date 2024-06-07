@@ -89,7 +89,6 @@ export const SupportLogData = ({ form }: Props) => {
                 <TableSelect
                   form={form}
                   name="enroll_info"
-                  defaultItem={{ label: "", value: undefined }}
                   selectList={enrollInfoList}
                 />
               ),

@@ -4,7 +4,6 @@ import TableSelect from "@/components/table/TableSelect";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { X } from "lucide-react";
-import { originalPathname } from "next/dist/build/templates/app-page";
 import { ChangeEvent, useState } from "react";
 import { UseFormReturn } from "react-hook-form";
 
@@ -292,7 +291,7 @@ export const HeritageInfoData = ({ form }: Props) => {
                   </p>
                   <Button
                     variant={"ghost"}
-                    className="p-0 hover:bg-inherit"
+                    className="p-0 hover:bg-"
                     onClick={deleteFile}
                   >
                     <X size={16} />
