@@ -1,5 +1,11 @@
+import { uploadFile } from "@/api/uploadFile";
 import TableInput from "@/components/table/TableInput";
+import TableSelect from "@/components/table/TableSelect";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { X } from "lucide-react";
+import { originalPathname } from "next/dist/build/templates/app-page";
+import { ChangeEvent, useState } from "react";
 import { UseFormReturn } from "react-hook-form";
 
 interface Props {
@@ -205,5 +211,176 @@ export const HeritageInfoData = ({ form }: Props) => {
     },
   ];
 
-  return data;
+  const fileTypeOptions = [
+    { label: "일반 문서", value: 1 },
+    { label: "이미지", value: 2 },
+    { label: "동영상", value: 3 },
+    { label: "3D 프린팅", value: 4 },
+  ];
+
+  const [file, setFile] = useState({
+    filename: "",
+    file_size: "",
+  });
+
+  const onFileChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const target = e?.target?.files;
+    if (target === null) return;
+    if (target.length === 0) return;
+
+    if (!target) {
+      return;
+    }
+    const file = target?.[0];
+    uploadFile(file).then((res) => {
+      form.setValue("filename", res.data?.originalFilename);
+      form.setValue("file_url", res.data?.fileUrl);
+      form.setValue("file_size", res.data?.fileSize);
+      setFile({
+        filename: res.data?.originalFilename,
+        file_size: res.data?.fileSize,
+      });
+    });
+  };
+
+  const deleteFile = () => {
+    setFile({ filename: "", file_size: "" });
+    form.setValue("filename", "");
+    form.setValue("file_url", "");
+    form.setValue("file_size", "");
+  };
+
+  const componentData = [
+    {
+      title: "메타데이터 항목명",
+      node: <Input value="대한식소총" disabled />,
+    },
+    {
+      title: "식별정보",
+      children: [
+        {
+          label: "국가유산 식별자\n(아이템 식별자)",
+          node: <Input value="" disabled />,
+        },
+        {
+          label: "컴포넌트 식별자",
+          node: <TableInput form={form} name="code" />,
+        },
+        {
+          label: "컴포넌트명",
+          node: <TableInput form={form} name="name" />,
+        },
+      ],
+    },
+    {
+      title: "파일정보",
+      children: [
+        {
+          label: "파일 올리기",
+          node: (
+            <div className="flex flex-col gap-[0.62rem]">
+              <Input
+                type="file"
+                id="file"
+                className="hidden"
+                onChange={onFileChangeHandler}
+              />
+              {file?.filename && file?.file_size && (
+                <div className="flex items-center gap-[0.62rem]">
+                  <p className="text-xs text-[#999]">
+                    {file.file_size}(KB) | {file.filename}
+                  </p>
+                  <Button
+                    variant={"ghost"}
+                    className="p-0 hover:bg-inherit"
+                    onClick={deleteFile}
+                  >
+                    <X size={16} />
+                  </Button>
+                </div>
+              )}
+              <label
+                htmlFor="file"
+                className="px-4 py-2 text-primary border border-primary w-fit"
+              >
+                첨부파일
+              </label>
+            </div>
+          ),
+        },
+        {
+          label: "파일명",
+          node: <TableInput form={form} name="filename" isDisabled={true} />,
+        },
+        {
+          label: "파일크키(KB)",
+          node: <TableInput form={form} name="file_size" isDisabled={true} />,
+        },
+        {
+          label: "위치",
+          node: <TableInput form={form} name="file_url" isDisabled={true} />,
+        },
+        {
+          label: "파일유형",
+          node: (
+            <TableSelect
+              form={form}
+              name="file_type"
+              selectList={fileTypeOptions}
+            />
+          ),
+        },
+        {
+          label: "파일포맷",
+          node: <TableInput form={form} name="file_format" />,
+        },
+        {
+          label: "NFT 등록",
+          node: (
+            <div className="flex flex-col gap-[0.62rem]">
+              <p className="text-[#999]">NFT를 등록할 수 있습니다.</p>
+              <div>
+                <Button variant={"blue"}>NFT 등록</Button>
+              </div>
+            </div>
+          ),
+        },
+      ],
+    },
+    {
+      title: "변경이력",
+      children: [
+        {
+          children: [
+            {
+              label: "변경일자",
+              node: <TableInput form={form} name="modify_date" />,
+            },
+            {
+              label: "변경항목",
+              node: <TableInput form={form} name="modify_item" />,
+            },
+          ],
+        },
+        {
+          children: [
+            {
+              label: "변경이전값",
+              node: <TableInput form={form} name="modify_pre_value" />,
+            },
+            {
+              label: "변경이후값",
+              node: <TableInput form={form} name="modify_value" />,
+            },
+          ],
+        },
+        {
+          label: "변경행위자",
+          node: <TableInput form={form} name="modifier" />,
+        },
+      ],
+    },
+  ];
+
+  return { data, componentData };
 };

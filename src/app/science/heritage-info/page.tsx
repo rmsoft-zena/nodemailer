@@ -1,24 +1,36 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import TableMain from "@/components/table/Main";
+import {
+  componentDefaultValue,
+  componentFormSchema,
+  heritageDefaultValue,
+  heritageFormSchema,
+} from "./schema";
+import { HeritageInfoData } from "./data";
 
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { heritageDefaultValue, heritageFormSchema } from "./schema";
-import { HeritageInfoData } from "./data";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function HeritageInfoPage() {
   const router = useRouter();
-  const form = useForm<z.infer<typeof heritageFormSchema>>({
+  const [tabValue, setTabValue] = useState("item");
+  const heritageForm = useForm<z.infer<typeof heritageFormSchema>>({
     defaultValues: heritageDefaultValue,
     resolver: zodResolver(heritageFormSchema),
   });
-  const data = HeritageInfoData({ form });
+  const componentForm = useForm<z.infer<typeof componentFormSchema>>({
+    defaultValues: componentDefaultValue,
+    resolver: zodResolver(componentFormSchema),
+  });
+  const form = tabValue === "item" ? heritageForm : componentForm;
+  const { data, componentData } = HeritageInfoData({ form });
   const onSubmit = (value: z.infer<typeof heritageFormSchema>) => {
     console.log(value);
   };
@@ -28,7 +40,9 @@ export default function HeritageInfoPage() {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="h-10 flex justify-between items-center px-4 border w-full bg-gray-200">
-            <p className="font-semibold text-black text-sm">활용정보</p>
+            <p className="font-semibold text-black text-sm">
+              국가유산 정보 (아이템)
+            </p>
             <div className="flex items-center gap-1 py-1">
               <Button
                 type="submit"
@@ -46,11 +60,32 @@ export default function HeritageInfoPage() {
               </Button>
             </div>
           </div>
-          <p className="h-10 w-full font-medium px-4 border-x flex items-center text-sm bg-[#F8FAFC]">
-            분류
-          </p>
-
-          <TableMain data={data} />
+          <Tabs
+            defaultValue={tabValue}
+            onValueChange={setTabValue}
+            className="w-full"
+          >
+            <TabsList className="py-0 px-4 rounded-none w-full justify-start gap-4 bg-[#F8FAFC] border-x">
+              <TabsTrigger
+                value="item"
+                className="data-[state=active]:text-primary pb-[4px] border-transparent border-b-[2px] h-full data-[state=active]:border-primary rounded-none px-0 data-[state=active]:bg-inherit data-[state=active]:shadow-none text-gray-900 font-semibold"
+              >
+                국가유산 정보 (아이템)
+              </TabsTrigger>
+              <TabsTrigger
+                className="data-[state=active]:text-primary pb-[4px] border-transparent border-b-[2px] h-full data-[state=active]:border-primary rounded-none px-0 data-[state=active]:bg-inherit data-[state=active]:shadow-none text-gray-900 font-semibold"
+                value="component"
+              >
+                컴포넌트 정보
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent className="mt-0" value="item">
+              <TableMain data={data} />
+            </TabsContent>
+            <TabsContent className="mt-0" value="component">
+              <TableMain data={componentData} />
+            </TabsContent>
+          </Tabs>
         </form>
       </Form>
     </div>

@@ -18,7 +18,6 @@ interface SelectItem {
 interface TableSelectInterface {
   form: UseFormReturn<any>;
   name: string;
-  defaultItem: SelectItem;
   selectList: Array<SelectItem>;
 }
 

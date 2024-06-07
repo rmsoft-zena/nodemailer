@@ -51,3 +51,33 @@ export const heritageDefaultValue = {
   manage_date: "",
   manager_name: "",
 };
+
+export const componentFormSchema = z.object({
+  code: z.string().optional(),
+  name: z.string().optional(),
+  filename: z.string().optional(),
+  file_type: z.string().optional(),
+  file_format: z.string().optional(),
+  file_size: z.string().optional(),
+  file_url: z.string().optional(),
+  modify_date: z.string().optional(),
+  modify_item: z.string().optional(),
+  modify_pre_value: z.string().optional(),
+  modify_value: z.string().optional(),
+  modifier: z.string().optional(),
+});
+
+export const componentDefaultValue = {
+  code: "",
+  name: "",
+  filename: "",
+  file_type: "",
+  file_format: "",
+  file_size: "",
+  file_url: "",
+  modify_date: "",
+  modify_item: "",
+  modify_pre_value: "",
+  modify_value: "",
+  modifier: "",
+};
